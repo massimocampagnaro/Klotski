@@ -10,6 +10,7 @@
     --bg-card: #052840;
     --accent: #64CCC5;
     --accent-glow: rgba(100, 204, 197, 0.15);
+    --title-bar-embedded: #135b8b;
     --text-primary: #e2f0f8;
     --text-muted: #6a9ab5;
     --error-bg: rgba(220, 60, 60, 0.12);
@@ -74,8 +75,8 @@ main {
 
 .game-frame {
     position: relative;
-    width: 600px;
-    height: 700px;
+    width: 520px;
+    height: 704px;
     border-radius: 6px;
     overflow: hidden;
     box-shadow: var(--shadow-deep), 0 0 0 1px rgba(100, 204, 197, 0.08);
@@ -87,9 +88,16 @@ main {
     height: 100%;
 }
 
-/* Hide any non-canvas elements CheerpJ may inject into the container */
-#game-container > :not(canvas) {
-    display: none !important;
+.cheerpjNC:before {
+    display: none;
+}
+
+#cheerpjDisplay .window.bordered .titleBar {
+    background-color: var(--title-bar-embedded);
+}
+
+#cheerpjDisplay .window.bordered:first-of-type .titleBar a {
+    display: none;
 }
 
 /* ── Loading overlay ── */
