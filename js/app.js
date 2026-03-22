@@ -34,7 +34,7 @@
             const container = document.getElementById('game-container');
             cheerpjCreateDisplay(520, 704, container);
 
-            const runMainPromise = cheerpjRunMain('Main', '/app/MyKlotski/klotski.jar');
+            const runMainPromise = cheerpjRunMain('Main', '/app/Klotski/klotski.jar');
 
             await waitForGameCanvas(container, 15000);
             hideOverlay();
