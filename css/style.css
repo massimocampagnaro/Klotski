@@ -25,8 +25,7 @@ html, body {
 
 body {
     background-color: var(--bg-deep);
-    background-image:
-        radial-gradient(ellipse at 50% 0%, rgba(6, 60, 90, 0.6) 0%, transparent 60%);
+    background-image: radial-gradient(ellipse at 50% 0%, rgba(6, 60, 90, 0.6) 0%, transparent 60%);
     color: var(--text-primary);
     font-family: 'Segoe UI', system-ui, Arial, sans-serif;
     min-height: 100vh;
@@ -130,7 +129,9 @@ main {
 }
 
 @keyframes spin {
-    to { transform: rotate(360deg); }
+    to {
+        transform: rotate(360deg);
+    }
 }
 
 .loading-text {

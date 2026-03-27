@@ -16,7 +16,7 @@
             if (overlay && overlay.parentNode) {
                 overlay.parentNode.removeChild(overlay);
             }
-        }, { once: true });
+        }, {once: true});
     }
 
     function showError(message) {
@@ -70,7 +70,7 @@
                 }
             });
 
-            observer.observe(container, { childList: true, subtree: true });
+            observer.observe(container, {childList: true, subtree: true});
 
             const timeout = setTimeout(() => {
                 observer.disconnect();
