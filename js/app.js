@@ -27,12 +27,56 @@
         }
     }
 
+    // On mobile, CheerpJ calls preventDefault() on touchstart (to handle game drag),
+    // suppressing the browser's trusted synthetic mouse/click events for ALL touches —
+    // including taps on dialog buttons.
+    //
+    // Playwright confirmed: CheerpJ does NOT check event.isTrusted, so synthetic
+    // MouseEvents from dispatchEvent() work correctly.
+    //
+    // Two-layer fix on dialog windows (non-first .window.bordered):
+    //  1. touchstart capture on document → stopPropagation, so CheerpJ can't call
+    //     preventDefault and the browser can generate its own trusted events.
+    //  2. touchend capture on document → relay as mousedown+mouseup+click (fallback
+    //     for browsers/contexts where layer 1 alone isn't enough).
+    function setupDialogTouchFix(display) {
+        function isDialog(el) {
+            var windowEl = el.closest('.window.bordered');
+            if (!windowEl || !display.contains(windowEl)) return false;
+            return windowEl !== display.querySelector('.window.bordered');
+        }
+
+        document.addEventListener('touchstart', function (e) {
+            if (!isDialog(e.target)) return;
+            e.stopPropagation(); // Prevent CheerpJ from calling preventDefault
+        }, { passive: false, capture: true });
+
+        document.addEventListener('touchend', function (e) {
+            var touch = e.changedTouches[0];
+            var el = document.elementFromPoint(touch.clientX, touch.clientY);
+            if (!el || !isDialog(el)) return;
+
+            e.stopPropagation();
+            var opts = {
+                bubbles: true, cancelable: true, view: window,
+                clientX: touch.clientX, clientY: touch.clientY,
+                screenX: touch.screenX, screenY: touch.screenY,
+            };
+            el.dispatchEvent(new MouseEvent('mousedown', opts));
+            el.dispatchEvent(new MouseEvent('mouseup', opts));
+            el.dispatchEvent(new MouseEvent('click', opts));
+        }, { passive: false, capture: true });
+    }
+
     window.startEverything = async function () {
         try {
             await cheerpjInit();
 
             const container = document.getElementById('game-container');
             cheerpjCreateDisplay(520, 704, container);
+
+            var display = container.querySelector('#cheerpjDisplay');
+            if (display) setupDialogTouchFix(display);
 
             const runMainPromise = cheerpjRunMain('Main', '/app/Klotski/klotski.jar');
 

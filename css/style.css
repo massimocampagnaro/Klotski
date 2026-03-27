@@ -77,7 +77,6 @@ main {
     width: 520px;
     height: 704px;
     border-radius: 6px;
-    overflow: hidden;
     box-shadow: var(--shadow-deep), 0 0 0 1px rgba(100, 204, 197, 0.08);
     background-color: #000;
 }
@@ -91,12 +90,25 @@ main {
     display: none;
 }
 
+/* Allow CheerpJ dialog windows to overflow the display bounds without clipping */
+#cheerpjDisplay {
+    overflow: visible !important;
+    touch-action: none;
+}
+
 #cheerpjDisplay .window.bordered .titleBar {
     background-color: var(--title-bar-embedded);
 }
 
 #cheerpjDisplay .window.bordered:first-of-type .titleBar a {
     display: none;
+}
+
+/* Ensure dialog windows (non-first) are always on top and receive pointer events */
+#cheerpjDisplay .window.bordered:not(:first-of-type) {
+    overflow: visible !important;
+    z-index: 10000 !important;
+    pointer-events: auto !important;
 }
 
 /* ── Loading overlay ── */

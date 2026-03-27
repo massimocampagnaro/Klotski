@@ -1,0 +1,25 @@
+{
+  "name": "klotski",
+  "version": "1.0.0",
+  "description": "Java-based Klotski implementation embedded for web via CheerpJ",
+  "main": "index.js",
+  "scripts": {
+    "test": "node debug-dialog.js",
+    "serve": "npx serve -l 8888 .."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/massimocampagnaro/Klotski.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/massimocampagnaro/Klotski/issues"
+  },
+  "homepage": "https://github.com/massimocampagnaro/Klotski#readme",
+  "dependencies": {
+    "@playwright/test": "^1.58.2",
+    "playwright": "^1.58.2"
+  }
+}
