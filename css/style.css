@@ -41,6 +41,24 @@ header {
     padding: 32px 24px 20px;
     text-align: center;
     user-select: none;
+    position: relative;
+}
+
+.portfolio-back {
+    position: absolute;
+    top: 16px;
+    left: 20px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.portfolio-back:hover {
+    color: var(--accent);
 }
 
 header h1 {
@@ -76,7 +94,6 @@ main {
     position: relative;
     width: 520px;
     height: 704px;
-    border-radius: 6px;
     box-shadow: var(--shadow-deep), 0 0 0 1px rgba(100, 204, 197, 0.08);
     background-color: #000;
 }
