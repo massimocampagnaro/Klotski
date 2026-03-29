@@ -40,10 +40,24 @@
     //  2. touchend capture on document → relay as mousedown+mouseup+click (fallback
     //     for browsers/contexts where layer 1 alone isn't enough).
     function setupDialogTouchFix(display) {
+        // Store a stable reference to the main game window (the first .window.bordered
+        // created by CheerpJ).  Once set this never changes, so dialogs are identified
+        // as any OTHER .window.bordered regardless of current DOM order — this handles
+        // the completion dialog, which can appear when the game window is removed or
+        // when CheerpJ inserts it before the game window in the DOM.
+        var mainGameWindow = display.querySelector('.window.bordered');
+        if (!mainGameWindow) {
+            var initObs = new MutationObserver(function () {
+                var w = display.querySelector('.window.bordered');
+                if (w) { mainGameWindow = w; initObs.disconnect(); }
+            });
+            initObs.observe(display, { childList: true, subtree: true });
+        }
+
         function isDialog(el) {
             var windowEl = el.closest('.window.bordered');
             if (!windowEl || !display.contains(windowEl)) return false;
-            return windowEl !== display.querySelector('.window.bordered');
+            return mainGameWindow ? windowEl !== mainGameWindow : false;
         }
 
         document.addEventListener('touchstart', function (e) {
