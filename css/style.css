@@ -44,10 +44,10 @@ header {
     position: relative;
 }
 
-.portfolio-back {
+.portfolio-back,
+.github-link {
     position: absolute;
     top: 16px;
-    left: 20px;
     font-size: 0.75rem;
     font-weight: 600;
     letter-spacing: 0.08em;
@@ -57,7 +57,16 @@ header {
     transition: color 0.2s;
 }
 
-.portfolio-back:hover {
+.portfolio-back {
+    left: 20px;
+}
+
+.github-link {
+    right: 20px;
+}
+
+.portfolio-back:hover,
+.github-link:hover {
     color: var(--accent);
 }
 
